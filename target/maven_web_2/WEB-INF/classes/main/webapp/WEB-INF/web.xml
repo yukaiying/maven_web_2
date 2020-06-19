@@ -13,4 +13,12 @@
     <servlet-name>register</servlet-name>
     <url-pattern>/register</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>Url</servlet-name>
+    <servlet-class>action.TestAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Url</servlet-name>
+    <url-pattern>/test</url-pattern>
+  </servlet-mapping>
 </web-app>

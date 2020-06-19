@@ -17,5 +17,6 @@ public class RegisterAction extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         User user = new User(req.getParameter("username"),req.getParameter("password"));
         userDaoImpl.insertUser(user);
+        resp.sendRedirect("index.jsp");
     }
 }

@@ -8,21 +8,27 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DBUtils {
+    private static Properties properties;
     private static Connection con;
     static {
-        Properties properties = new Properties();
-        InputStream input = DBUtils.class.getClass().getResourceAsStream("/db.properties");
+        InputStream input = DBUtils.class.getClassLoader().getResourceAsStream("resource/db.properties");
         try {
+            properties = new Properties();
             properties.load(input);
             Class.forName(properties.getProperty("jdbc.driver"));
-            con = DriverManager.getConnection(properties.getProperty("jdbc.url"),properties.getProperty("jdbc.username"),properties.getProperty("jdbc.password"));
-        } catch (IOException | ClassNotFoundException | SQLException e) {
+//            con = DriverManager.getConnection(properties.getProperty("jdbc.url"),properties.getProperty("jdbc.username"),properties.getProperty("jdbc.password"));
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
     public static Connection getCon(){
-        return con;
+        try {
+            return DriverManager.getConnection(properties.getProperty("jdbc.url"),properties.getProperty("jdbc.username"),properties.getProperty("jdbc.password"));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
     }
 
     public static void closeCon(Connection con){
